@@ -18,13 +18,19 @@ classifiers = [
 ]
 dependencies = [
   "beautifulsoup4>=4.12.3",
-  "Pillow>=10.2.0",
-  "tqdm>=4.66.2",
+  "Pillow>=10.3.0",  # Updated to 10.3.0 as per your list
+  "tqdm>=4.66.4",  # Updated to 4.66.4 as per your list
   "botok>=0.8.12",
-  "pandas",
+  "pandas>=2.2.2",  # Version specified as 2.2.2
   "google-auth-oauthlib>=1.2.0",
-  "google-api-python-client>=2.125.0"
+  "google-api-python-client>=2.128.0",  # Updated to 2.128.0 as per your list
+  "boto3>=1.34.102",  # Added boto3 with the version from your list
+  "numpy>=1.26.4",  # Added numpy, as it might be a dependency for pandas or other packages
+  "protobuf>=4.25.3",  # Added protobuf which is often needed when dealing with APIs
+  "requests>=2.31.0",  # Added requests, commonly used for HTTP requests
+  "urllib3>=2.2.1"  # Added urllib3 as it is a dependency for many packages including requests
 ]
+
 [project.optional-dependencies]
 dev = [
     "pytest",
