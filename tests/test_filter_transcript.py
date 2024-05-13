@@ -1,4 +1,4 @@
-from ocr_error_handling.filter_transcript import update_csv_files
+from ocr_error_filtering.filter_transcript import update_csv_files
 
 def test_update_csv_files():
     transcript_dir = "./tests/test_data/transcript"

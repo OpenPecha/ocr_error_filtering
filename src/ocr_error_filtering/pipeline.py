@@ -1,6 +1,6 @@
-from ocr_error_handling.get_page_ids import extract_page_ids
-from ocr_error_handling.filter_transcript import update_csv_files
-from ocr_error_handling.filter_image import setup_s3_client, copy_images_within_s3
+from ocr_error_filtering.get_page_ids import extract_page_ids
+from ocr_error_filtering.filter_transcript import update_csv_files
+from ocr_error_filtering.filter_image import setup_s3_client, copy_images_within_s3
 
 if __name__ == "__main__":
     issue_file_path = "./data/google-ocr-issues.csv"

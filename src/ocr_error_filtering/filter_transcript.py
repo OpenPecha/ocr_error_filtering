@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from ocr_error_handling.get_page_ids import extract_page_ids
+from ocr_error_filtering.get_page_ids import extract_page_ids
 
 
 def save_error_data_to_csv(error_data, save_error_transcript_path):
