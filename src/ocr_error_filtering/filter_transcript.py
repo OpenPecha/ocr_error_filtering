@@ -1,6 +1,7 @@
 import os
+from typing import Dict, List
+
 import pandas as pd
-from ocr_error_filtering.get_page_ids import extract_page_ids
 
 
 def save_error_data_to_csv(error_data, save_error_transcript_path):
@@ -13,7 +14,12 @@ def save_error_data_to_csv(error_data, save_error_transcript_path):
     """
     if not error_data.empty:
         # Append data if file exists, otherwise create and write headers
-        error_data.to_csv(save_error_transcript_path, mode='a', header=not os.path.exists(save_error_transcript_path), index=False)
+        error_data.to_csv(
+            save_error_transcript_path,
+            mode="a",
+            header=not os.path.exists(save_error_transcript_path),
+            index=False,
+        )
 
 
 def update_csv_files(transcript_dir, page_ids, save_error_transcript_path):
@@ -28,7 +34,7 @@ def update_csv_files(transcript_dir, page_ids, save_error_transcript_path):
     Returns:
     - dict: Mapping of page IDs to their corresponding batch folders.
     """
-    page_id_to_batch = {}
+    page_id_to_batch: Dict[str, List[str]] = {}
 
     # Iterate over each CSV file in the local directory
     for batch_csv_file in os.listdir(transcript_dir):
@@ -37,18 +43,22 @@ def update_csv_files(transcript_dir, page_ids, save_error_transcript_path):
 
         # Update mapping and filter out the data
         for idx, row in csv_data.iterrows():
-            page_id = row['line_image_id'].split('_')[0]
+            page_id = row["line_image_id"].split("_")[0]
             if page_id in page_ids:
                 if page_id not in page_id_to_batch:
                     page_id_to_batch[page_id] = []
-                page_id_to_batch[page_id].append(batch_csv_file.replace('.csv', ''))
+                page_id_to_batch[page_id].append(batch_csv_file.replace(".csv", ""))
 
         # Identify and save error data
-        error_data = csv_data[csv_data['line_image_id'].apply(lambda x: x.split('_')[0] in page_ids)]
+        error_data = csv_data[
+            csv_data["line_image_id"].apply(lambda x: x.split("_")[0] in page_ids)
+        ]
         save_error_data_to_csv(error_data, save_error_transcript_path)
 
         # Filter out rows where the page_id is in the list and save
-        filtered_data = csv_data[~csv_data['line_image_id'].apply(lambda x: x.split('_')[0] in page_ids)]
+        filtered_data = csv_data[
+            ~csv_data["line_image_id"].apply(lambda x: x.split("_")[0] in page_ids)
+        ]
         filtered_data.to_csv(csv_path, index=False)
 
     # Remove duplicates from the mapping
@@ -56,5 +66,3 @@ def update_csv_files(transcript_dir, page_ids, save_error_transcript_path):
         page_id_to_batch[key] = list(set(value))
 
     return page_id_to_batch
-
-
