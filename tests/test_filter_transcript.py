@@ -8,3 +8,5 @@ def test_update_csv_files():
     expected_page_id_to_batch = {'I3CN46890016': ['batch_1'], 'I1KG155250419': ['batch_2']}
     assert page_id_to_batch == expected_page_id_to_batch
 
+if __name__ == "__main__":
+    test_update_csv_files()
